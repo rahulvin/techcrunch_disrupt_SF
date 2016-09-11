@@ -43,7 +43,7 @@ body {;
 }
 
 .jumbotron{
-  background-image: "../assets/familyvacation.png";
+  background-image: "/static/assets/familyvacation.png";
   background-size: cover;
   height: 100%;
 }
