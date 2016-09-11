@@ -40,11 +40,10 @@ body {;
 }
 
 .container-login{
-
 }
 
 .jumbotron{
-  background-image: url("../static/img/jumbotron_bg.jpg");
+  background-image: url("../static/assets/familyvacation.jpg");
   background-size: cover;
   height: 100%;
 }
