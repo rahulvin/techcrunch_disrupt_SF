@@ -15,7 +15,7 @@ $(document).ready(function(){
      searchText: city_of_travel,
 
    };
-   var x = parseInt(duration)
+   var x = 0;
     console.log(geocodingParams)
     // Define a callback function to process the geocoding response:
     for(ip = 0;ip< duration;ip++){
@@ -28,7 +28,7 @@ $(document).ready(function(){
         marker;
                 // Instantiate (and display) a map object:
       var map = new H.Map(
-        document.getElementById('mapContainer'+ip),
+        document.getElementById('mapContainer'+x++),
         platform.createDefaultLayers().normal.map,
         {
           zoom: 15,
@@ -38,6 +38,7 @@ $(document).ready(function(){
           },
         }
       );
+      console.log(map)
       tooltip = new Tooltip(map);
 
       var mapEvents = new H.mapevents.MapEvents(map);
