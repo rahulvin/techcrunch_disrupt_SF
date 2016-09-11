@@ -1,0 +1,14 @@
+<form>
+
+	Start Date: <br>
+	<input type="text" name="startdate"><br>
+	End Date: <br>
+	<input type="text" name="enddate">
+
+	City of Travel: <br>
+	<input type="text" name="cityoftravel">
+	<input type="submit" value="Submit">
+
+</form>
+
+<form action="action_page.php">
