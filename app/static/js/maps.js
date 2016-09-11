@@ -44,7 +44,6 @@ $(document).ready(function(){
           search(position)
           console.log(position)
       }
-
       return results
     };
 
@@ -97,8 +96,8 @@ $(document).ready(function(){
           group.addObjects(result.items.map(function (place) {
           var marker = new H.map.Marker({lat: place.position[0],
             lng: place.position[1]})
-
-          marker.title = "DSFsdfsd"
+          console.log(place)
+          marker.title = place.title
           return marker;
           }));
         }
@@ -108,9 +107,6 @@ $(document).ready(function(){
         search.request(params, {}, onSearchResult, onError);
     }
 //ENDSEARCH
-
-console.log(results)
-
 
 });
 

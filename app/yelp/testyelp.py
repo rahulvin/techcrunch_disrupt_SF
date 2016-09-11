@@ -1,8 +1,6 @@
 import rauth
 
-params = dict()
-params['term'] = "Cream Puffs"
-params['location'] = "San Francisco"
+
 
 def get_results(params):
    
