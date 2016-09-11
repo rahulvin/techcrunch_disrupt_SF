@@ -73,14 +73,14 @@ $(document).ready(function(){
         // requests:
         var search = new H.places.Search(platform.getPlacesService()),
           searchResult, error;
-
+        console.log(coords.lat+',' + coords.lng)
         // Define search parameters:
         var params = {
         // Plain text search for places with the word "hotel"
         // associated with them:
           'q': 'hotel',
         //  Search in the Chinatown district in San Francisco:
-          'at': coords.lat+',' + coords.long
+          'at': coords.lat+',' + coords.lng
         };
         // Define a callback function to handle data on success:
         function onSearchResult(data) {
