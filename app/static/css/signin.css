@@ -15,6 +15,7 @@ body {;
 .form-signin .form-signin-heading,
 .form-signin {
   margin-bottom: 10px;
+  text-align: center;
 }
 .form-signin .form-control {
   position: relative;
