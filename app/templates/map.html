@@ -26,7 +26,10 @@
   </head>
   <body>
   {% for i in range(0, duration) %}
-    <div style="width: 640px; height: 480px" id="mapContainer{{i}}"></div>
+  <div class="container">
+    <div class="col-sm-8" style="width: 640px; height: 480px" id="mapContainer{{i}}"></div>
+    <div class="col-sm-4" id="mapContainer{{i}}bar"></div>
+  </div>
     <br>
     <br>
     <br>

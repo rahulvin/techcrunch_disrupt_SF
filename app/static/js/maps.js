@@ -7,8 +7,7 @@ $(document).ready(function(){
         'app_code': 'M10yb8dGd9imFIxvwXGA5Q'
     });
 
-
-
+var y=0;
 //GEOCODE
     // Create the parameters for the geocoding request:
    var geocodingParams = {
@@ -19,6 +18,7 @@ $(document).ready(function(){
     console.log(geocodingParams)
     // Define a callback function to process the geocoding response:
     for(ip = 0;ip< duration;ip++){
+    aaaaa= ip;
     console.log(document.getElementById('mapContainer'+ip))
     var onGeoCodeResult = function(result) {
 
@@ -175,6 +175,11 @@ $(document).ready(function(){
             b++;
             a++;
           }
+            var div = document.getElementById('mapContainer'+y+++'bar');
+            for(j=0;j<5;j++){
+                div.innerHTML = div.innerHTML + route[j].title+"<br>";
+            }
+
         }
     }
 //ENDSEARCH
