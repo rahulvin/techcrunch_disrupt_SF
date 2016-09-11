@@ -1,0 +1,12 @@
+TechCrunch
+
+Weather 
+	•	Weather conditions for a city
+	•	Hourly forecast
+	•	Sunrise and sunset
+	•	Pedestrian route from A to B
+	•	Car route from A to B
+	•	Waypoint sequence for a car
+	•	Route from A to B using public transport
+	•	Avoiding a form of public transport
+	•	Timetables public transport
