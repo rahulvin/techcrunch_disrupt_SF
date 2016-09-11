@@ -25,10 +25,33 @@
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   </head>
   <body>
-  {% for i in range(0, duration) %}
-    <div style="width: 640px; height: 480px" id="mapContainer{{i}}"></div>
-  {% endfor %}
 
+  <div class="container">
+        <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+      {% for i in range(0, duration) %}
+        {% if i == 0 %}
+            <li role="presentation" class="active"><a href="#mapContainer{{i}}" aria-controls="mapContainer{{i}}" role="tab" data-toggle="tab">mapContainer{{i}}</a></li>
+        {% else %}
+            <li role="presentation"><a href="#mapContainer{{i}}" aria-controls="mapContainer{{i}}" role="tab" data-toggle="tab">mapContainer{{i}}</a></li>
+        {% endif %}
+      {% endfor %}
+  </ul>
+  <div class="tab-content">
+      {% for i in range(0, duration) %}
+        {% if i == 0 %}
+            <div role="tabpanel" style="width: 640px; height: 480px" class="tab-pane active" id="mapContainer{{i}}"></div>
+        {% else %}
+            <div role="tabpanel" style="width: 640px; height: 480px" class="tab-pane" id="mapContainer{{i}}"></div>
+        {% endif %}
+      {% endfor %}
+  </div>
+
+
+
+
+
+  </div>
 
 
 
