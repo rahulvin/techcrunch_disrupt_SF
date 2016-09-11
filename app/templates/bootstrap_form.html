@@ -18,16 +18,17 @@
   </head>
 
   <body>
-    <div class="jumbotron" style=>
+    <div class="jumbotron">
         <div class="container-login">
           <form class="form-signin" action="{{ url_for('map') }}">
-            <h2 class="form-signin-heading">Your Next Getaway</h2>
+            <h2 class="form-signin-heading">Find Your Next Getaway</h2>
+            <br>
             <label for="inputDestination" class="sr-only">Destination</label>
             <input type="destination" name="destination" id="inputDestination" class="form-control" placeholder="Destination" required>
-            <br><br>
-            <label for="inputDuration" class="sr-only">Duration of Stay</label>
-            <input type="duration" name="duration" id="inputDuration" class="form-control" placeholder="Duration" required autofocus>
-            <br><br>
+            <br>
+            <label for="inputDuration" class="sr-only">Duration</label>
+            <input type="duration" name="duration" id="inputDuration" class="form-control" placeholder="Duration in Days" required autofocus>
+            <br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Wanderlust!</button>
           </form>
         </div> <!-- /container -->
