@@ -16,6 +16,7 @@ body {;
 .form-signin {
   margin-bottom: 10px;
   text-align: center;
+  font-family: "Helvetica";
 }
 .form-signin .form-control {
   position: relative;
