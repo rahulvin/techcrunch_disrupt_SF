@@ -1,6 +1,8 @@
 $(document).ready(function(){
     // Initialize the platform object:
     var platform = new H.service.Platform({
+      useCIT: true,
+
         'app_id': '6pULDBl1OMCzgGo0SusZ',
         'app_code': 'M10yb8dGd9imFIxvwXGA5Q'
     });
@@ -35,9 +37,12 @@ $(document).ready(function(){
       tooltip = new Tooltip(map);
 
       var mapEvents = new H.mapevents.MapEvents(map);
-      map.addEventListener('tap', function(evt) {
-        // Log 'tap' and 'mouse' events:
-        console.log(evt.type, evt.currentPointer.type);
+      map.addEventListener('tap', function (evt) {
+        var coord = map.screenToGeo(evt.currentPointer.viewportX,
+                evt.currentPointer.viewportY);
+        geocodingParams = {
+            searchText: city_of_travel,
+        };
       });
       var behavior = new H.mapevents.Behavior(mapEvents);
       // Add a marker for each location found
@@ -46,7 +51,7 @@ $(document).ready(function(){
             lat: locations[i].Location.DisplayPosition.Latitude,
             lng: locations[i].Location.DisplayPosition.Longitude
           };
-          search(position, map)
+          search(position, map,'eat-drink')
           console.log(position)
       }
       return results
@@ -62,7 +67,7 @@ $(document).ready(function(){
       alert(e);
     });
 //ENDGEOCODE
-    function search(coords, map) {
+    function search(coords, map, category) {
     //SEARCH
             // Create a group object to hold map markers:
         var group = new H.map.Group();
@@ -75,17 +80,20 @@ $(document).ready(function(){
 
         // Obtain a Search object through which to submit search
         // requests:
-        var search = new H.places.Search(platform.getPlacesService()),
-          searchResult, error;
+        var explore = new H.places.Explore(platform.getPlacesService()), onSearchResult, error;
+        console.log(explore)
         // Define search parameters:
         var params = {
         // Plain text search for places with the word "hotel"
         // associated with them:
-          'q': 'hotel',
+          'cat': 'sights-museum,eat-drink,going-out',
+          'size': 100,
         //  Search in the Chinatown district in San Francisco:
           'at': coords.lat+',' + coords.lng
         };
-        // Define a callback function to handle data on success:
+        // Run a search request with parameters, headers (empty), and
+        // callback functions:
+        explore.request(params, {}, onSearchResult, onError);        // Define a callback function to handle data on success:
         function onSearchResult(data) {
           addPlacesToMap(data.results);
         }
@@ -95,21 +103,46 @@ $(document).ready(function(){
           error = data;
         }
 
+
         // This function adds markers to the map, indicating each of
         // the located places:
         function addPlacesToMap(result) {
-          group.addObjects(result.items.map(function (place) {
+          var food_places = []
+          var others= []
+          for (i= 0;i<100;i++){
+            if(result.items[i].category.title == 'Restaurant' ||
+             result.items[i].category.title == 'Bar/Pub' ||
+             result.items[i].category.title =="Snacks/Fast food" ||
+              result.items[i].category.title == 'Coffee/Tea') {
+                food_places.push(result.items[i])
+            } else {
+                others.push(result.items[i])
+            }
+          }
+          console.log(food_places)
+          console.log(others)
+          var new_items = []
+          for (i=0; i<5; i++){
+              var a = parseInt(Math.floor((Math.random() * food_places.length)));
+              var b = parseInt(Math.floor((Math.random() * others.length)));
+              console.log(a)
+              console.log(b)
+              if(i<2){
+                 new_items.push(food_places[a])
+              }else {
+                 new_items.push(others[b])
+              }
+          }
+          group.addObjects(new_items.map(function (place) {
           var marker = new H.map.Marker({lat: place.position[0],
             lng: place.position[1]})
           console.log(place)
-          marker.title = place.title
+          marker.title = place.title + "<br>" + place.category.title
           return marker;
           }));
         }
 
-        // Run a search request with parameters, headers (empty), and
-        // callback functions:
-        search.request(params, {}, onSearchResult, onError);
+
     }
 //ENDSEARCH
 
