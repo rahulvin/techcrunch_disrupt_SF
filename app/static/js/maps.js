@@ -5,43 +5,48 @@ $(document).ready(function(){
         'app_code': 'M10yb8dGd9imFIxvwXGA5Q'
     });
 
-    // Instantiate (and display) a map object:
-    var map = new H.Map(
-        document.getElementById('mapContainer'),
-        platform.createDefaultLayers().normal.map,
-        {
-          zoom: 10,
-          center: { lat: '37.7942', lng:'-122.4070' },
-        }
-    );
-    tooltip = new Tooltip(map);
 
-    var mapEvents = new H.mapevents.MapEvents(map);
-    map.addEventListener('tap', function(evt) {
-        // Log 'tap' and 'mouse' events:
-        console.log(evt.type, evt.currentPointer.type);
-    });
-    var behavior = new H.mapevents.Behavior(mapEvents);
 
 //GEOCODE
     // Create the parameters for the geocoding request:
    var geocodingParams = {
-     searchText: 'San Francisco'
+     searchText: city_of_travel,
    };
-
+    console.log(geocodingParams)
     // Define a callback function to process the geocoding response:
     var onGeoCodeResult = function(result) {
+
       var results = []
       var locations = result.Response.View[0].Result,
         position,
         marker;
+                // Instantiate (and display) a map object:
+      var map = new H.Map(
+        document.getElementById('mapContainer'),
+        platform.createDefaultLayers().normal.map,
+        {
+          zoom: 15,
+          center: {
+            lat: locations[0].Location.DisplayPosition.Latitude,
+            lng: locations[0].Location.DisplayPosition.Longitude
+          },
+        }
+      );
+      tooltip = new Tooltip(map);
+
+      var mapEvents = new H.mapevents.MapEvents(map);
+      map.addEventListener('tap', function(evt) {
+        // Log 'tap' and 'mouse' events:
+        console.log(evt.type, evt.currentPointer.type);
+      });
+      var behavior = new H.mapevents.Behavior(mapEvents);
       // Add a marker for each location found
       for (i = 0;  i < locations.length; i++) {
           position = {
             lat: locations[i].Location.DisplayPosition.Latitude,
             lng: locations[i].Location.DisplayPosition.Longitude
           };
-          search(position)
+          search(position, map)
           console.log(position)
       }
       return results
@@ -57,7 +62,7 @@ $(document).ready(function(){
       alert(e);
     });
 //ENDGEOCODE
-    function search(coords) {
+    function search(coords, map) {
     //SEARCH
             // Create a group object to hold map markers:
         var group = new H.map.Group();
