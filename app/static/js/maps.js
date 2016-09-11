@@ -18,7 +18,7 @@ $(document).ready(function(){
    var x = parseInt(duration)
     console.log(geocodingParams)
     // Define a callback function to process the geocoding response:
-    for(ip = 0;ip< duration-1;ip++){
+    for(ip = 0;ip< duration;ip++){
     console.log(document.getElementById('mapContainer'+ip))
     var onGeoCodeResult = function(result) {
 
