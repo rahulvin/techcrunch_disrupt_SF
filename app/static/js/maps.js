@@ -110,7 +110,7 @@ $(document).ready(function(){
     }
 //ENDSEARCH
 
-
+console.log(results)
 
 
 });
