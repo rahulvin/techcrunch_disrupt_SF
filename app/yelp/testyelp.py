@@ -1,5 +1,9 @@
 import rauth
 
+params = dict()
+params['term'] = "Cream Puffs"
+params['location'] = "San Francisco"
+
 def get_results(params):
    
   session = rauth.OAuth1Session(
@@ -10,9 +14,3 @@ def get_results(params):
      
   request = session.get("http://api.yelp.com/v2/search",params=params)
   return request.json()
-
-if __name__ == '__main__':
-	params = dict()
- 	params['term'] = "Cream Puffs"
- 	params['location'] = "San Francisco"
- 	print get_results(params)
