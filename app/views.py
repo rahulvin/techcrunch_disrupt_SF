@@ -6,7 +6,7 @@ from flask import render_template, request
 
 @app.route('/')
 def index():
-    return render_template('initial_form.html')
+    return render_template('bootstrap_form.html')
 
 
 @app.route('/map')
