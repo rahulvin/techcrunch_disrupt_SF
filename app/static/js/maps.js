@@ -73,7 +73,6 @@ $(document).ready(function(){
         // requests:
         var search = new H.places.Search(platform.getPlacesService()),
           searchResult, error;
-        console.log(coords.lat+',' + coords.lng)
         // Define search parameters:
         var params = {
         // Plain text search for places with the word "hotel"
