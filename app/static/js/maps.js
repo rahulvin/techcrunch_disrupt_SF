@@ -121,30 +121,122 @@ $(document).ready(function(){
           }
           console.log(food_places)
           console.log(others)
-          var new_items = []
+          var food_items =[]
+           var other_items = []
           for (i=0; i<5; i++){
               var a = parseInt(Math.floor((Math.random() * food_places.length)));
               var b = parseInt(Math.floor((Math.random() * others.length)));
               console.log(a)
               console.log(b)
               if(i<2){
-                 new_items.push(food_places[a])
+                 food_items.push(food_places[a])
               }else {
-                 new_items.push(others[b])
+                 other_items.push(others[b])
               }
           }
-          group.addObjects(new_items.map(function (place) {
-          var marker = new H.map.Marker({lat: place.position[0],
-            lng: place.position[1]})
-          console.log(place)
-          marker.title = place.title + "<br>" + place.category.title
-          return marker;
+          group.addObjects(food_items.map(function (place) {
+              var marker = new H.map.Marker({lat: place.position[0],
+                lng: place.position[1]})
+              console.log(place)
+              marker.title = place.title + "<br>" + place.category.title
+              return marker;
           }));
+          group.addObjects(other_items.map(function (place) {
+              var marker = new H.map.Marker({lat: place.position[0],
+                lng: place.position[1]})
+              console.log(place)
+              marker.title = place.title + "<br>" + place.category.title
+              return marker;
+          }));
+          var i = 0
+          var url = 'https://matrix.route.cit.api.here.com/routing/7.2/calculatematrix.json?app_id=6pULDBl1OMCzgGo0SusZ&app_code=M10yb8dGd9imFIxvwXGA5Q'
+          var end = '&mode=fastest;car;traffic:disabled'
+          var e;
+          var route=[];
+          while( i != 5){
+            if(i % 2 == 0){
+               e = other_items.pop()
+                route.push(e)
+            } else {
+                e = food_items.pop()
+                route.push(e)
+            }
+            i++;
+          }
+          var a=0,b=1;
+          while(b!= 5){
+            drawroute(route[a],route[b], map);
+            b++;
+            a++;
+          }
         }
-
-
     }
 //ENDSEARCH
+//BEGIN ROUTING
+function drawroute(c1,c2, map){
+    // Create the parameters for the routing request:
+var routingParameters = {
+  // The routing mode:
+  'mode': 'fastest;car',
+  // The start point of the route:
+  'waypoint0': 'geo!'+c1.position[0]+','+c1.position[1],
+  // The end point of the route:
+  'waypoint1': 'geo!'+c2.position[0]+','+c2.position[1],
+  // To retrieve the shape of the route we choose the route
+  // representation mode 'display'
+  'representation': 'display'
+};
+
+// Define a callback function to process the routing response:
+var onResult = function(result) {
+  var route,
+    routeShape,
+    startPoint,
+    endPoint,
+    strip;
+  if(result.response.route) {
+  // Pick the first route from the response:
+  route = result.response.route[0];
+  // Pick the route's shape:
+  routeShape = route.shape;
+
+  // Create a strip to use as a point source for the route line
+  strip = new H.geo.Strip();
+
+  // Push all the points in the shape into the strip:
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    strip.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  // Retrieve the mapped positions of the requested waypoints:
+  startPoint = route.waypoint[0].mappedPosition;
+  endPoint = route.waypoint[1].mappedPosition;
+
+  // Create a polyline to display the route:
+  var routeLine = new H.map.Polyline(strip, {
+    style: { lineWidth: 10 },
+    arrows: { fillColor: 'white', frequency: 2, width: 0.8, length: 0.7 }
+  });
+
+  // Add the route polyline and the two markers to the map:
+  map.addObjects([routeLine]);
+
+  }
+};
+
+// Get an instance of the routing service:
+var router = platform.getRoutingService();
+
+// Call calculateRoute() with the routing parameters,
+// the callback and an error callback function (called if a
+// communication error occurs):
+router.calculateRoute(routingParameters, onResult,
+  function(error) {
+    alert(error.message);
+  });
+}
+//ENDROUTING
 
 });
 
