@@ -13,9 +13,13 @@ $(document).ready(function(){
     // Create the parameters for the geocoding request:
    var geocodingParams = {
      searchText: city_of_travel,
+
    };
+   var x = parseInt(duration)
     console.log(geocodingParams)
     // Define a callback function to process the geocoding response:
+    for(ip = 0;ip< duration-1;ip++){
+    console.log(document.getElementById('mapContainer'+ip))
     var onGeoCodeResult = function(result) {
 
       var results = []
@@ -24,7 +28,7 @@ $(document).ready(function(){
         marker;
                 // Instantiate (and display) a map object:
       var map = new H.Map(
-        document.getElementById('mapContainer'),
+        document.getElementById('mapContainer'+ip),
         platform.createDefaultLayers().normal.map,
         {
           zoom: 15,
@@ -66,6 +70,7 @@ $(document).ready(function(){
     var coords = geocoder.geocode(geocodingParams, onGeoCodeResult, function(e) {
       alert(e);
     });
+    }
 //ENDGEOCODE
     function search(coords, map, category) {
     //SEARCH

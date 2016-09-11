@@ -20,13 +20,13 @@
   <body>
     <div class="jumbotron">
         <div class="container-login">
-          <form class="form-signin">
+          <form class="form-signin" action="{{ url_for('map') }}">
             <h2 class="form-signin-heading">Please Enter Your Travel Information</h2>
             <label for="inputDuration" class="sr-only">Duration of Stay</label>
-            <input type="duration" id="inputDuration" class="form-control" placeholder="Duration" required autofocus>
+            <input type="duration" name="duration" id="inputDuration" class="form-control" placeholder="Duration" required autofocus>
             <br><br>
             <label for="inputDestination" class="sr-only">Destination</label>
-            <input type="destination" id="inputDestination" class="form-control" placeholder="Destination" required>
+            <input type="destination" name="destination" id="inputDestination" class="form-control" placeholder="Destination" required>
             <br><br>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Wanderlust!</button>
           </form>

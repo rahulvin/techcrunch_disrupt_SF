@@ -12,5 +12,7 @@ def index():
 @app.route('/map')
 def map():
     results = testyelp.get_results(params)
-    location = request.args.get('city_of_travel')
-    return render_template('map.html', results=results, city_of_travel=location)
+    location = request.args.get('destination')
+    duration = request.args.get('duration')
+    print(duration)
+    return render_template('map.html', results=results, city_of_travel=location, duration=int(duration))
